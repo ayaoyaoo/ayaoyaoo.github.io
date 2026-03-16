@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mengyao Zhang — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@300;400;600&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════
+   VARIABLES & RESET
+═══════════════════════════════════ */
+:root {
+  --paper:    #fef9f0;
+  --blush:    #f5d6cc;
+  --rose:     #e8b4a8;
+  --cloud:    #c8dff0;
+  --star:     #f7e8b0;
+  --lavender: #d8cfe8;
+  --sage:     #c9d9c0;
+  --ink:      #2a2420;
+  --ink-mid:  #5a4f48;
+  --ink-soft: #8a7e78;
+  --border:   rgba(200,160,140,0.25);
+  --tl-cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='24' viewBox='0 0 48 24'><line x1='4' y1='12' x2='44' y2='12' stroke='%23b87c6a' stroke-width='1.2'/><polyline points='10,6 4,12 10,18' fill='none' stroke='%23b87c6a' stroke-width='1.2' stroke-linejoin='round'/><polyline points='38,6 44,12 38,18' fill='none' stroke='%23b87c6a' stroke-width='1.2' stroke-linejoin='round'/></svg>") 24 12, ew-resize;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Paper texture overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* ═══════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════ */
+.cursor      { position: fixed; width: 9px; height: 9px; background: var(--rose); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); mix-blend-mode: multiply; }
+.cursor-ring { position: fixed; width: 32px; height: 32px; border: 1.5px solid var(--rose); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.18s ease; opacity: 0.5; }
+
+/* ═══════════════════════════════════
+   FLOATING PARTICLES
+═══════════════════════════════════ */
+.floaters { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+.floater  { position: absolute; animation: float-up linear infinite; opacity: 0; }
+@keyframes float-up {
+  0%   { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 0.7; }
+  100% { transform: translateY(-8vh) rotate(360deg); opacity: 0; }
+}
+
+/* ═══════════════════════════════════
+   NAV
+═══════════════════════════════════ */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 22px 60px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(253,245,224,0.93), transparent); }
+.nav-logo  { font-family: 'Noto Serif SC', serif; font-size: 14px; color: var(--ink-mid); letter-spacing: 0.06em; }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a { font-size: 12px; color: var(--ink-soft); text-decoration: none; letter-spacing: 0.1em; transition: color 0.3s; }
+.nav-links a:hover { color: var(--ink); }
+
+.lang-toggle { display: flex; align-items: center; gap: 6px; margin-left: 24px; }
+.lang-opt    { font-size: 11px; letter-spacing: 0.12em; color: var(--ink-soft); cursor: pointer; padding-bottom: 2px; transition: color 0.2s; font-family: 'DM Sans', sans-serif; }
+.lang-opt:hover  { color: var(--ink); }
+.lang-opt.active { color: var(--ink); border-bottom: 1px solid var(--rose); }
+.lang-dot { font-size: 11px; color: var(--border); }
+
+/* ═══════════════════════════════════
+   SHARED / UTILITIES
+═══════════════════════════════════ */
+.section-wrap { max-width: 1160px; margin: 0 auto; padding: 88px 60px; position: relative; z-index: 2; }
+.sec-label    { font-size: 10.5px; letter-spacing: 0.22em; color: var(--rose); text-transform: uppercase; margin-bottom: 12px; }
+.sec-title    { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 300; line-height: 1.4; margin-bottom: 16px; }
+.sec-title em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--rose); }
+.divider      { text-align: center; padding: 10px 0; position: relative; z-index: 2; font-size: 18px; letter-spacing: 8px; opacity: 0.2; }
+
+/* Scroll reveal */
+.reveal         { opacity: 0; transform: translateY(26px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: .08s; }
+.d2 { transition-delay: .16s; }
+.d3 { transition-delay: .24s; }
+.d4 { transition-delay: .32s; }
+
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
+#hero       { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 60px 80px; position: relative; overflow: hidden; z-index: 2; }
+.hero-inner { max-width: 1160px; margin: 0 auto; width: 100%; }
+
+/* Animated background blobs */
+.wc-blob { position: absolute; border-radius: 60% 40% 55% 45%/50% 60% 40% 50%; filter: blur(72px); pointer-events: none; }
+.wc1     { width: 520px; height: 440px; background: var(--blush); opacity: 0.5; top: -80px; right: -40px; animation: morph1 16s ease-in-out infinite; }
+.wc2     { width: 380px; height: 360px; background: var(--cloud); opacity: 0.45; bottom: -60px; left: -60px; animation: morph2 20s ease-in-out infinite; }
+.wc3     { width: 260px; height: 260px; background: var(--star); opacity: 0.25; top: 40%; left: 28%; animation: morph1 12s ease-in-out infinite 4s; }
+
+@keyframes morph1 {
+  0%, 100% { border-radius: 60% 40% 55% 45%/50% 60% 40% 50%; transform: translate(0,0); }
+  40%      { border-radius: 40% 60% 45% 55%/60% 40% 60% 40%; transform: translate(20px,-15px); }
+  70%      { border-radius: 50% 50% 60% 40%/45% 55% 45% 55%; transform: translate(-15px,20px); }
+}
+@keyframes morph2 {
+  0%, 100% { border-radius: 45% 55% 40% 60%/55% 45% 55% 45%; transform: translate(0,0); }
+  35%      { border-radius: 60% 40% 55% 45%/40% 60% 40% 60%; transform: translate(-18px,14px); }
+  65%      { border-radius: 40% 60% 60% 40%/60% 40% 50% 50%; transform: translate(14px,-18px); }
+}
+
+.hero-deco    { position: absolute; right: 7%; top: 50%; transform: translateY(-50%); width: 300px; height: 300px; animation: fadeup 1.2s ease 0.6s both; }
+.hero-eyebrow { font-size: 11px; letter-spacing: 0.22em; color: var(--ink-soft); margin-bottom: 18px; text-transform: uppercase; animation: fadeup 1s ease both; }
+.hero-name    { font-family: 'Noto Serif SC', serif; font-size: clamp(50px,7.5vw,88px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; animation: fadeup 1s ease 0.15s both; }
+.hero-name em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--rose); }
+.hero-sub     { margin-top: 24px; font-size: 14px; color: var(--ink-mid); max-width: 480px; line-height: 1.9; animation: fadeup 1s ease 0.3s both; }
+.hero-tags    { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 30px; animation: fadeup 1s ease 0.45s both; }
+.hero-tag     { padding: 5px 16px; background: rgba(255,255,255,0.55); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; color: var(--ink-mid); letter-spacing: 0.04em; }
+.hero-scroll  { position: absolute; bottom: 40px; left: 60px; display: flex; align-items: center; gap: 11px; font-size: 10px; color: var(--ink-soft); letter-spacing: 0.16em; animation: fadeup 1s ease 1s both; }
+.scroll-line  { width: 34px; height: 1px; background: var(--ink-soft); animation: pulse-line 2.2s ease-in-out infinite; }
+
+@keyframes pulse-line { 0%, 100% { transform: scaleX(1); opacity: .4; } 50% { transform: scaleX(1.5); opacity: 1; } }
+@keyframes fadeup     { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ═══════════════════════════════════
+   ABOUT
+═══════════════════════════════════ */
+#about-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-text  { font-size: 13.5px; line-height: 2.1; color: var(--ink-mid); margin-bottom: 14px; }
+.about-role  { font-size: 11px; letter-spacing: 0.14em; color: var(--ink-soft); margin-top: 10px; margin-bottom: 24px; font-family: 'DM Sans', sans-serif; }
+.about-achievements-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 12px; margin-top: 28px; font-family: 'DM Sans', sans-serif; }
+.about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 34px; }
+.about-deco  { position: relative; height: 380px; }
+
+.stat-card       { padding: 20px 22px; background: rgba(255,255,255,0.82); border: 1px solid var(--border); border-radius: 14px; backdrop-filter: blur(8px); transition: transform 0.3s, box-shadow 0.3s; }
+.stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(160,100,80,0.1); }
+.stat-num { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--ink); }
+.stat-lbl { font-size: 11px; color: var(--ink-soft); margin-top: 3px; letter-spacing: 0.04em; }
+.stat-ctx { font-size: 10px; color: var(--ink-soft); margin-top: 4px; letter-spacing: 0.02em; line-height: 1.4; }
+
+.about-photo-wrap { position: relative; width: 100%; height: 420px; }
+.about-photo      { width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: 24px; box-shadow: 0 16px 48px rgba(80,50,30,0.12); }
+
+/* ═══════════════════════════════════
+   WORK CARDS
+═══════════════════════════════════ */
+.work-card         { display: grid; grid-template-columns: 340px 1fr; border-radius: 20px; overflow: hidden; background: rgba(255,255,255,0.75); border: 1px solid var(--border); margin-bottom: 20px; transition: transform 0.4s, box-shadow 0.4s; }
+.work-card:hover   { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(140,90,60,0.1); }
+.work-card-visual  { position: relative; min-height: 280px; display: flex; flex-direction: column; justify-content: space-between; padding: 32px; }
+.work-card-body    { padding: 36px 40px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+.work-card-source  { font-size: 10.5px; letter-spacing: 0.14em; color: var(--rose); text-transform: uppercase; }
+.work-card-title   { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 300; line-height: 1.5; color: var(--ink); }
+.work-card-thinking{ font-size: 12px; color: var(--ink-soft); font-style: italic; line-height: 1.9; max-width: 520px; margin-bottom: 4px; }
+.work-card-metrics { display: flex; gap: 32px; }
+.work-metric-num   { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--ink); line-height: 1; }
+.work-metric-lbl   { font-size: 10.5px; color: var(--ink-soft); margin-top: 3px; letter-spacing: 0.04em; }
+
+/* Visual theme gradients */
+.wv-strategy  { background: linear-gradient(145deg, #f5d6cc, #d8cfe8); }
+.wv-growth    { background: linear-gradient(145deg, #f7e8b0, #f5d6cc); }
+.wv-execution { background: linear-gradient(145deg, #c8dff0, #c9d9c0); }
+.wv-story     { background: linear-gradient(145deg, #e8d5c0, #f0c8c8); }
+.wv-num { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 400; color: rgba(255,255,255,0.5); line-height: 1; }
+.wv-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(42,36,32,0.6); font-family: 'DM Sans', sans-serif; }
+
+.work-card-also { display: flex; align-items: baseline; gap: 8px; padding-top: 14px; margin-top: 14px; border-top: 1px solid var(--border); }
+.also-label     { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rose); white-space: nowrap; flex-shrink: 0; }
+.also-text      { font-size: 11px; color: var(--ink-soft); font-style: italic; line-height: 1.6; }
+
+/* ═══════════════════════════════════
+   CREATIVE SIDE (Beyond Work)
+═══════════════════════════════════ */
+.creative-grid      { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.creative-grid-row2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 66.6%; margin: 0 auto; }
+
+.cr-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--border);
+  transition: transform 0.35s, box-shadow 0.35s;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 L18.5 11.5 L28 11.5 L20.5 17.5 L23 27 L16 21.5 L9 27 L11.5 17.5 L4 11.5 L13.5 11.5 Z' fill='%23e8a090' opacity='0.9' stroke='%23d4806a' stroke-width='0.8'/%3E%3C/svg%3E") 16 16, pointer;
+}
+.cr-card:hover { transform: translateY(-6px); border-color: var(--rose); box-shadow: 0 16px 40px rgba(184,124,106,0.18); }
+
+/* Hover star decoration */
+.cr-card::after {
+  content: '✦'; position: absolute; top: 12px; right: 14px;
+  font-size: 18px; color: var(--rose); opacity: 0;
+  transform: scale(0.6) rotate(-20deg);
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none; z-index: 2;
+}
+.cr-card:hover::after { opacity: 0.85; transform: scale(1) rotate(0deg); }
+
+.cr-cover     { position: relative; height: 220px; overflow: hidden; }
+.cr-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cr-tag       { position: absolute; bottom: 10px; left: 12px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(42,36,32,0.65); background: rgba(255,255,255,0.75); padding: 3px 8px; border-radius: 20px; backdrop-filter: blur(4px); }
+.cr-body      { padding: 16px; }
+.cr-title     { font-family: 'Noto Serif SC', serif; font-size: 13px; font-weight: 400; color: var(--ink); margin-bottom: 6px; line-height: 1.4; }
+.cr-desc      { font-size: 11px; color: var(--ink-soft); line-height: 1.7; }
+
+/* Click hint overlay */
+.cr-card-hint {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(42,36,32,0.55), transparent);
+  color: #fff; font-size: 10.5px; letter-spacing: 0.12em; text-align: center;
+  padding: 20px 0 10px; opacity: 0; transform: translateY(6px);
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none; border-radius: 0 0 16px 16px;
+}
+.cr-card:hover .cr-card-hint { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  .creative-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ═══════════════════════════════════
+   TIMELINE
+═══════════════════════════════════ */
+#timeline       { position: relative; z-index: 2; }
+.timeline-inner { max-width: 1160px; margin: 0 auto; padding: 72px 60px; }
+.timeline-track { margin-top: 48px; overflow-x: auto; padding-bottom: 16px; -ms-overflow-style: none; scrollbar-width: none; cursor: var(--tl-cursor); }
+.timeline-track::-webkit-scrollbar { display: none; }
+
+.tl-grid { display: grid; grid-template-columns: repeat(15, 110px); position: relative; min-width: max-content; }
+.tl-grid::before { content: ''; position: absolute; left: 0; right: 0; top: 80px; height: 1px; background: linear-gradient(to right, transparent, rgba(180,140,110,0.25) 2%, rgba(180,140,110,0.25) 98%, transparent); z-index: 0; }
+
+.tl-cell  { display: flex; flex-direction: column; padding: 0 8px; }
+.tl-above { height: 80px; display: flex; align-items: flex-end; padding-bottom: 6px; font-size: 9px; color: var(--ink-soft); font-style: italic; line-height: 1.5; text-align: center; justify-content: center; visibility: hidden; }
+.tl-cell--personal .tl-above { visibility: visible; opacity: 0.5; }
+
+.tl-mid { height: 0; position: relative; z-index: 1; display: flex; align-items: center; }
+.tl-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--rose); opacity: 0.7; position: relative; top: -5px; flex-shrink: 0; }
+.tl-dot--personal { width: 7px; height: 7px; background: var(--ink-soft); opacity: 0.38; top: -3.5px; }
+
+.tl-below { padding-top: 18px; }
+.tl-cell--personal .tl-below { display: none; }
+.tl-year { font-size: 10px; letter-spacing: 0.12em; color: var(--rose); margin-bottom: 4px; white-space: nowrap; }
+.tl-role { font-family: 'Noto Serif SC', serif; font-size: 12.5px; font-weight: 400; color: var(--ink); line-height: 1.4; margin-bottom: 2px; }
+.tl-org  { font-size: 10.5px; color: var(--ink-soft); white-space: nowrap; }
+
+/* ═══════════════════════════════════
+   CONTACT & FOOTER
+═══════════════════════════════════ */
+#contact      { text-align: center; padding: 120px 60px; position: relative; overflow: hidden; z-index: 2; }
+.contact-wash { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(240,196,180,0.28), rgba(184,216,238,0.18), transparent); }
+.contact-inner { position: relative; z-index: 2; max-width: 560px; margin: 0 auto; }
+.contact-h    { font-family: 'Noto Serif SC', serif; font-size: 44px; font-weight: 300; line-height: 1.35; margin-bottom: 16px; }
+.contact-h em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--rose); }
+.contact-sub  { font-size: 14px; color: var(--ink-mid); line-height: 1.85; margin-bottom: 42px; }
+
+.c-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.cbtn   { padding: 12px 28px; border-radius: 100px; font-size: 12.5px; text-decoration: none; letter-spacing: 0.07em; transition: all 0.3s; display: inline-flex; align-items: center; gap: 7px; }
+.cbtn-p { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); }
+.cbtn-p:hover { background: var(--rose); border-color: var(--rose); transform: translateY(-2px); }
+.cbtn-s { background: transparent; color: var(--ink); border: 1px solid var(--border); backdrop-filter: blur(8px); }
+.cbtn-s:hover { border-color: var(--rose); color: var(--rose); transform: translateY(-2px); }
+
+footer { padding: 26px 60px; text-align: center; font-size: 12px; color: var(--ink-soft); border-top: 1px solid var(--border); position: relative; z-index: 2; }
+
+/* ═══════════════════════════════════
+   MODAL & SLIDESHOW
+═══════════════════════════════════ */
+.modal-overlay        { display: none; position: fixed; inset: 0; background: rgba(30,24,20,0.6); backdrop-filter: blur(6px); z-index: 1000; align-items: center; justify-content: center; padding: 40px 20px; }
+.modal-overlay.active { display: flex; }
+.modal-box            { background: var(--paper); border-radius: 24px; max-width: 820px; width: 100%; max-height: 88vh; overflow-y: auto; position: relative; box-shadow: 0 32px 80px rgba(30,20,10,0.2); }
+.modal-box::-webkit-scrollbar { display: none; }
+
+.modal-close        { position: sticky; top: 0; display: flex; justify-content: flex-end; padding: 16px 20px 0; z-index: 10; background: var(--paper); }
+.modal-close button { background: none; border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.modal-close button:hover { background: var(--ink); color: var(--paper); }
+
+.modal-content  { padding: 0 40px 40px; }
+.modal-tag      { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin-bottom: 10px; }
+.modal-title    { font-family: 'Noto Serif SC', serif; font-size: 26px; font-weight: 300; color: var(--ink); margin-bottom: 6px; line-height: 1.3; }
+.modal-subtitle { font-size: 12px; color: var(--ink-soft); margin-bottom: 28px; font-style: italic; }
+
+.modal-video        { width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; background: #1a1a1a; margin-bottom: 28px; display: flex; align-items: center; justify-content: center; }
+.modal-video iframe { width: 100%; height: 100%; border: none; }
+
+.modal-video-links   { display: flex; gap: 10px; margin-bottom: 28px; }
+.modal-video-links a { padding: 8px 18px; border-radius: 100px; font-size: 11px; letter-spacing: 0.06em; text-decoration: none; border: 1px solid var(--border); color: var(--ink); transition: all 0.2s; }
+.modal-video-links a:hover { background: var(--ink); color: var(--paper); }
+
+.modal-story    { margin: 32px 0; }
+.modal-story h4 { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin: 0 0 12px 0; font-weight: 500; }
+.modal-story p  { font-size: 12px; line-height: 2; color: var(--ink-soft); margin: 0 0 8px 0; }
+.modal-story p:last-child { margin-bottom: 0; }
+.modal-story em { font-style: italic; }
+
+/* Podcast episode links */
+.modal-story a:hover { background: rgba(255,255,255,0.9) !important; border-color: var(--rose) !important; transform: translateX(4px); }
+
+.modal-photos     { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.modal-photos img { width: 100%; border-radius: 8px; object-fit: cover; aspect-ratio: 4/3; }
+
+.modal-footer   { padding-top: 20px; border-top: 1px solid var(--border); display: flex; gap: 24px; flex-wrap: wrap; }
+.modal-meta     { font-size: 10.5px; color: var(--ink-soft); }
+.modal-meta span { color: var(--ink); }
+
+/* Slideshow */
+.modal-slideshow  { margin-bottom: 28px; }
+.slideshow-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.slideshow-nav    { display: flex; align-items: center; gap: 10px; }
+.slide-btn        { background: none; border: 1px solid var(--border); border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 13px; color: var(--ink); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+.slide-btn:hover  { background: var(--ink); color: var(--paper); }
+.slide-counter    { font-size: 11px; color: var(--ink-soft); min-width: 40px; text-align: center; }
+
+.slideshow-track { position: relative; width: 100%; aspect-ratio: 3/2; border-radius: 12px; overflow: hidden; background: #f0ece8; display: flex; }
+.slide-img       { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 0.3s ease; }
+.slide-img.active       { opacity: 1; left: 0; width: 50%; }
+.slide-img.active-right { opacity: 1; left: 50%; width: 50%; }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="floaters" id="floaters"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-logo">Mengyao Zhang</div>
+  <ul class="nav-links">
+    <li><a href="#about" data-en="About" data-zh="关于">About</a></li>
+    <li><a href="#strategy" data-en="Strategy" data-zh="品牌策略">Strategy</a></li>
+    <li><a href="#growth" data-en="Growth" data-zh="用户增长">Growth</a></li>
+    <li><a href="#execution" data-en="Execution" data-zh="创意执行">Execution</a></li>
+    <li><a href="#contact" data-en="Contact" data-zh="联系">Contact</a></li>
+  </ul>
+  <div class="lang-toggle" id="langToggle">
+    <span class="lang-opt active" id="lang-en" onclick="setLang('en')">EN</span>
+    <span class="lang-dot">·</span>
+    <span class="lang-opt" id="lang-zh" onclick="setLang('zh')">中</span>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="wc-blob wc1"></div>
+  <div class="wc-blob wc2"></div>
+  <div class="wc-blob wc3"></div>
+
+  <div class="hero-deco">
+    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M175 55 L184 80 L212 73 L194 93 L204 120 L179 107 L159 125 L162 98 L138 84 L166 78 Z" fill="#e8c030" opacity="0.78" stroke="#d4a820" stroke-width="1.5"/>
+      <path d="M238 128 L245 146 L265 141 L251 155 L258 174 L240 165 L226 178 L229 158 L212 148 L232 144 Z" fill="#f0d060" opacity="0.65" stroke="#e0b830" stroke-width="1.2"/>
+      <path d="M136 178 L140 190 L153 186 L144 196 L149 209 L137 203 L128 212 L130 199 L118 193 L132 189 Z" fill="#e8c030" opacity="0.58" stroke="#d4a820" stroke-width="1"/>
+      <ellipse cx="98" cy="98" rx="5" ry="9" fill="#b8d8ee" opacity="0.65" transform="rotate(15,98,98)"/>
+      <ellipse cx="258" cy="88" rx="4" ry="7" fill="#b8d8ee" opacity="0.55" transform="rotate(-10,258,88)"/>
+      <ellipse cx="128" cy="228" rx="4" ry="8" fill="#b8d8ee" opacity="0.58" transform="rotate(5,128,228)"/>
+      <circle cx="198" cy="158" r="5" fill="#e8a090" opacity="0.5"/>
+      <circle cx="158" cy="78" r="3" fill="#c8b8e0" opacity="0.6"/>
+      <line x1="248" y1="48" x2="248" y2="66" stroke="#e8c030" stroke-width="2" opacity="0.62"/>
+      <line x1="239" y1="57" x2="257" y2="57" stroke="#e8c030" stroke-width="2" opacity="0.62"/>
+      <line x1="108" y1="148" x2="108" y2="162" stroke="#b8d8ee" stroke-width="1.5" opacity="0.58"/>
+      <line x1="101" y1="155" x2="115" y2="155" stroke="#b8d8ee" stroke-width="1.5" opacity="0.58"/>
+    </svg>
+  </div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow" data-en="Portfolio · 2021–2026.03" data-zh="作品集 · 2021–2026.03">Portfolio · 2021–2026.03</p>
+    <h1 class="hero-name" data-en="Mengyao Zhang" data-zh="张梦耀">Mengyao Zhang</h1>
+    <p class="hero-sub">
+      <span data-en="Stay curious. To be the director of my own life." data-zh="保持好奇心，做自己人生的导演。">Stay curious. To be the director of my own life.</span>
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag" data-en="Brand Strategy" data-zh="品牌策略">Brand Strategy</span>
+      <span class="hero-tag" data-en="Xiaohongshu KOL" data-zh="小红书 KOL">Xiaohongshu KOL</span>
+      <span class="hero-tag" data-en="Content Creation" data-zh="内容创作">Content Creation</span>
+      <span class="hero-tag" data-en="Bilingual CN/EN" data-zh="中英双语">Bilingual CN/EN</span>
+      <span class="hero-tag" data-en="UI/UX" data-zh="UI/UX">UI/UX</span>
+      <span class="hero-tag" data-en="Photography" data-zh="摄影">Photography</span>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>SCROLL TO EXPLORE</div>
+</section>
+
+<div class="divider">✦ · ✦ · ✦</div>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="section-wrap">
+    <div id="about-grid">
+      <div class="reveal">
+        <p class="sec-label">About Me · 关于我</p>
+        <h2 class="sec-title" data-en="Where creative storytelling meets measurable growth." data-zh="在创意与数据之间找到<em>平衡</em>">Where creative storytelling<br>meets <em>measurable growth.</em></h2>
+        <p class="about-role" data-en="Brand Strategy · Growth Marketing · Content & Visual Storytelling" data-zh="品牌策略 · 增长营销 · 内容与视觉创作">Brand Strategy · Growth Marketing · Content & Visual Storytelling</p>
+        <p class="about-text" data-en="UNSW Media (Screen Production). Co-founded an AI startup and led brand strategy and user growth. Experienced in influencer marketing, content strategy, and visual storytelling — working across both Chinese and Australian markets." data-zh="UNSW 媒体专业（Screen Production 方向）。曾联合创立 AI 初创项目，负责品牌策略与用户增长。拥有达人营销、内容策略与视觉创作经验，在中国与澳大利亚市场进行过跨平台传播实践。">UNSW Media (Screen Production). Co-founded an AI startup and led brand strategy and user growth. Experienced in influencer marketing, content strategy, and visual storytelling — working across both Chinese and Australian markets.</p>
+        <p class="about-text" style="font-family:'Playfair Display',serif;font-style:italic;font-size:13.5px;color:var(--ink-soft);margin-top:12px;" data-en="At its core, great marketing is great storytelling." data-zh="好的营销，本质上是好的叙事。">At its core, great marketing is great storytelling.</p>
+        <p class="about-achievements-label" data-en="Selected Achievements" data-zh="核心成果">Selected Achievements</p>
+        <div class="about-stats">
+          <div class="stat-card reveal d1"><div class="stat-num">400,000+</div><div class="stat-lbl" data-en="KOL Campaign Reach" data-zh="KOL 触达人数">KOL Campaign Reach</div><div class="stat-ctx" data-en="Xiaohongshu KOL campaigns" data-zh="小红书 KOL 投放">Xiaohongshu KOL campaigns</div></div>
+          <div class="stat-card reveal d2"><div class="stat-num">12,000+</div><div class="stat-lbl" data-en="Startup Users" data-zh="初创用户数">Startup Users</div><div class="stat-ctx" data-en="40 days after GitHub launch" data-zh="GitHub 上线后 40 天">40 days after GitHub launch</div></div>
+          <div class="stat-card reveal d3"><div class="stat-num">85%</div><div class="stat-lbl" data-en="CTR Growth" data-zh="点击率提升">CTR Growth</div><div class="stat-ctx" data-en="Healthcare campaigns" data-zh="医疗健康内容投放">Healthcare campaigns</div></div>
+          <div class="stat-card reveal d4"><div class="stat-num">9,000</div><div class="stat-lbl" data-en="Followers Built" data-zh="粉丝增长">Followers Built</div><div class="stat-ctx" data-en="From 0 → 9k on 小红书" data-zh="小红书从 0 到 9000">From 0 → 9k on 小红书</div></div>
+        </div>
+      </div>
+      <div class="about-deco reveal d2">
+        <div class="about-photo-wrap">
+          <img src="images/1.jpg" class="about-photo" alt="Mengyao Zhang" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SELECTED WORK ═══ -->
+<section id="work" style="position:relative;z-index:2;">
+  <div class="section-wrap">
+    <div class="reveal" style="margin-bottom:56px;">
+      <p class="sec-label" data-en="Selected Work" data-zh="精选案例">Selected Work</p>
+      <h2 class="sec-title">案例<em>精选</em></h2>
+    </div>
+
+    <!-- Card 01: Strategy -->
+    <div class="work-card reveal d1">
+      <div class="work-card-visual wv-strategy">
+        <div class="wv-num">01</div>
+        <div class="wv-tag" data-en="Brand Strategy" data-zh="品牌策略">Brand Strategy</div>
+      </div>
+      <div class="work-card-body">
+        <p class="work-card-source">ConnectOnion · 联合创始人</p>
+        <h3 class="work-card-title" data-en="An open-source AI tool needed a voice. I built one." data-zh="一个开源 AI 工具需要自己的声音，我来建立它。">An open-source AI tool needed a voice. I built one.</h3>
+        <p class="work-card-thinking" data-en="Developers don't respond to hype — they respond to clarity and community. So I led with education, not promotion." data-zh="开发者不吃营销话术，他们要的是清晰和归属感。所以我选择用内容教育代替硬推广。">Developers don't respond to hype — they respond to clarity and community. So I led with education, not promotion.</p>
+        <div class="work-card-metrics">
+          <div class="work-metric"><div class="work-metric-num">9,000</div><div class="work-metric-lbl" data-en="Followers Built" data-zh="粉丝增长">Followers Built</div></div>
+          <div class="work-metric"><div class="work-metric-num">100K+</div><div class="work-metric-lbl" data-en="Impressions" data-zh="曝光量">Impressions</div></div>
+          <div class="work-metric"><div class="work-metric-num">12,000+</div><div class="work-metric-lbl" data-en="Users in 40 days" data-zh="40天用户量">Users in 40 days</div></div>
+        </div>
+        <div class="work-card-also">
+          <span class="also-label">Also ·</span>
+          <span class="also-text">World Youth Summit (RCGY) · 160% CTR Growth · Digital Media Strategy</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 02: Growth -->
+    <div class="work-card reveal d2">
+      <div class="work-card-visual wv-growth">
+        <div class="wv-num">02</div>
+        <div class="wv-tag" data-en="Audience & Growth" data-zh="用户增长">Audience & Growth</div>
+      </div>
+      <div class="work-card-body">
+        <p class="work-card-source">青木数字科技 · KOL 运营实习</p>
+        <h3 class="work-card-title" data-en="40+ influencers. One system. 400,000 reached." data-zh="40+ 达人，一套体系，触达 40 万人。">40+ influencers. One system. 400,000 reached.</h3>
+        <p class="work-card-thinking" data-en="Good KOL work isn't about follower count — it's about fit. I built selection criteria around audience overlap, not vanity metrics." data-zh="KOL投放不是看粉丝数，是看受众匹配度。我建立了一套以人群重合为核心的筛选标准，而不是追热度。">Good KOL work isn't about follower count — it's about fit. I built selection criteria around audience overlap, not vanity metrics.</p>
+        <div class="work-card-metrics">
+          <div class="work-metric"><div class="work-metric-num">400K+</div><div class="work-metric-lbl" data-en="Campaign Reach" data-zh="触达人数">Campaign Reach</div></div>
+          <div class="work-metric"><div class="work-metric-num">85%</div><div class="work-metric-lbl" data-en="CTR Growth" data-zh="点击率提升">CTR Growth</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 03: Execution -->
+    <div class="work-card reveal d3">
+      <div class="work-card-visual wv-execution">
+        <div class="wv-num">03</div>
+        <div class="wv-tag" data-en="Creative Execution" data-zh="创意执行">Creative Execution</div>
+      </div>
+      <div class="work-card-body">
+        <p class="work-card-source">UNSW 校园兼职平台 · Head of Marketing</p>
+        <h3 class="work-card-title" data-en="200+ interviews. Turned insight into product architecture." data-zh="200+ 次访谈，把洞察转化成产品架构。">200+ interviews. Turned insight into product architecture.</h3>
+        <p class="work-card-thinking" data-en="Most teams skip the listening. I ran 200+ student interviews before touching Figma — because the right wireframe starts with the right question." data-zh="大多数团队跳过倾听直接动手。我在打开 Figma 之前做了 200+ 次访谈——因为正确的线框图从正确的问题开始。">Most teams skip the listening. I ran 200+ student interviews before touching Figma — because the right wireframe starts with the right question.</p>
+        <div class="work-card-metrics">
+          <div class="work-metric"><div class="work-metric-num">40+</div><div class="work-metric-lbl" data-en="Figma Wireframes" data-zh="线框图">Figma Wireframes</div></div>
+          <div class="work-metric"><div class="work-metric-num">8</div><div class="work-metric-lbl" data-en="Competitor Analyses" data-zh="竞品分析">Competitor Analyses</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 04: Storytelling -->
+    <div class="work-card reveal d4">
+      <div class="work-card-visual wv-story">
+        <div class="wv-num">04</div>
+        <div class="wv-tag" data-en="Storytelling & Content Production" data-zh="叙事与内容制作">Storytelling & Content Production</div>
+      </div>
+      <div class="work-card-body">
+        <p class="work-card-source">独立纪录片 · 公益影像</p>
+        <h3 class="work-card-title" data-en="Real stories, real people — filmed with intention." data-zh="真实的故事，真实的人——带着目的去拍。">Real stories, real people — filmed with intention.</h3>
+        <p class="work-card-thinking" data-en="A documentary on loneliness. A short film for a community of performers with disabilities. Before I learned to market stories, I learned to tell them." data-zh="一部关于孤独的纪录片。一部为社区残障表演者拍摄的公益短片。在学会营销故事之前，我先学会了讲故事。">A documentary on loneliness. A short film for a community of performers with disabilities. Before I learned to market stories, I learned to tell them.</p>
+        <div class="work-card-metrics">
+          <div class="work-metric"><div class="work-metric-num">2</div><div class="work-metric-lbl" data-en="Films Directed" data-zh="导演作品">Films Directed</div></div>
+          <div class="work-metric"><div class="work-metric-num">独立</div><div class="work-metric-lbl" data-en="Self-initiated" data-zh="自发创作">Self-initiated</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ · ✦ · ✦</div>
+
+<!-- ═══ CREATIVE SIDE (Beyond Work) ═══ -->
+<section id="creative-side" style="position:relative;z-index:2;">
+  <div class="section-wrap">
+    <div class="reveal" style="margin-bottom:48px;">
+      <p class="sec-label" data-en="Beyond Work" data-zh="工作之外">Beyond Work</p>
+      <h2 class="sec-title">好奇心<em>驱动</em></h2>
+    </div>
+
+    <!-- Row 1: 3 cards -->
+    <div class="creative-grid">
+      <div class="cr-card reveal d1" onclick="openModal('modal-stopmotion')">
+        <div class="cr-cover" style="background:linear-gradient(135deg,#e8d5f0,#c8d8f0);">
+          <img src="images/2.jpg" alt="Stop-motion" onerror="this.style.display='none'">
+          <div class="cr-tag">Stop-motion</div>
+          <div class="cr-card-hint">查看详情 ✦</div>
+        </div>
+        <div class="cr-body">
+          <h3 class="cr-title">《She Heard the Rain Speak》</h3>
+          <p class="cr-desc">用定格动画让雨有了语言。</p>
+        </div>
+      </div>
+
+      <div class="cr-card reveal d2" onclick="openModal('modal-podcast')">
+        <div class="cr-cover" style="background:linear-gradient(135deg,#f5e6c8,#f0d5c0);">
+          <img src="images/3.jpg" alt="播客" onerror="this.style.display='none'">
+          <div class="cr-tag">播客</div>
+          <div class="cr-card-hint">查看详情 ✦</div>
+        </div>
+        <div class="cr-body">
+          <h3 class="cr-title">《恋爱要谈》</h3>
+          <p class="cr-desc">聊感情、聊关系，也聊自己。</p>
+        </div>
+      </div>
+
+      <div class="cr-card reveal d3" onclick="openModal('modal-photography')">
+        <div class="cr-cover" style="background:linear-gradient(135deg,#d8e8d8,#c8d8c0);">
+          <img src="images/4.jpg" alt="日系摄影" onerror="this.style.display='none'">
+          <div class="cr-tag">摄影</div>
+          <div class="cr-card-hint">查看详情 ✦</div>
+        </div>
+        <div class="cr-body">
+          <h3 class="cr-title">日系摄影</h3>
+          <p class="cr-desc">用胶片感记录日常里的微小温柔。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: 2 cards centered -->
+    <div class="creative-grid-row2" style="margin-top:20px;">
+      <div class="cr-card reveal d1" onclick="openModal('modal-vlog')">
+        <div class="cr-cover" style="background:linear-gradient(135deg,#f0d8d8,#e8c8d8);">
+          <img src="images/5.jpg" alt="Vlog" onerror="this.style.display='none'">
+          <div class="cr-tag">Vlog</div>
+          <div class="cr-card-hint">查看详情 ✦</div>
+        </div>
+        <div class="cr-body">
+          <h3 class="cr-title">「满分豆酥」</h3>
+          <p class="cr-desc">把镜头对准生活。</p>
+        </div>
+      </div>
+
+      <div class="cr-card reveal d2" onclick="openModal('modal-game')">
+        <div class="cr-cover" style="background:linear-gradient(135deg,#d8e0f0,#e0d8f0);">
+          <img src="images/6.jpg" alt="2D游戏" onerror="this.style.display='none'">
+          <div class="cr-tag">Unity 2D</div>
+          <div class="cr-card-hint">查看详情 ✦</div>
+        </div>
+        <div class="cr-body">
+          <h3 class="cr-title">自制 2D 游戏</h3>
+          <p class="cr-desc">从零学 Unity，把脑子里的世界做出来。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ · ✦ · ✦</div>
+
+<!-- ═══ TIMELINE ═══ -->
+<section id="timeline">
+  <div class="timeline-inner">
+    <div class="reveal">
+      <p class="sec-label">Experience · 经历</p>
+      <h2 class="sec-title" style="font-size:26px;margin-bottom:0;">探索ing</h2>
+    </div>
+    <div class="timeline-track">
+      <div class="tl-grid">
+        <div class="tl-cell">
+          <div class="tl-above"></div>
+          <div class="tl-mid"><div class="tl-dot"></div></div>
+          <div class="tl-below"><div class="tl-year">2021 – 2022</div><div class="tl-role">媒体与宣传部长</div><div class="tl-org">温州大学商学院</div></div>
+        </div>
+        <div class="tl-cell tl-cell--personal">
+          <div class="tl-above">短片《The Loneliness Epidemic》</div>
+          <div class="tl-mid"><div class="tl-dot tl-dot--personal"></div></div>
+          <div class="tl-below"></div>
+        </div>
+        <div class="tl-cell">
+          <div class="tl-above"></div>
+          <div class="tl-mid"><div class="tl-dot"></div></div>
+          <div class="tl-below"><div class="tl-year">2023</div><div class="tl-role">活动策划实习</div><div class="tl-org">TEDxSydney</div></div>
+        </div>
+        <div class="tl-cell">
+          <div class="tl-above"></div>
+          <div class="tl-mid"><div class="tl-dot"></div></div>
+          <div class="tl-below"><div class="tl-year">2023</div><div class="tl-role">数字媒体策略</div><div class="tl-org">世界青年峰会</div></div>
+        </div>
+        <div class="tl-cell tl-cell--personal">
+          <div class="tl-above">学日语 · Unity 2D · 科技前沿翻译</div>
+          <div class="tl-mid"><div class="tl-dot tl-dot--personal"></div></div>
+          <div class="tl-below"></div>
+        </div>
+        <div class="tl-cell">
+          <div class="tl-above"></div>
+          <div class="tl-mid"><div class="tl-dot"></div></div>
+          <div class="tl-below"><div class="tl-year">2023 – 2024</div><div class="tl-role">Head of Marketing</div><div class="tl-org">UNSW 校园兼职平台</div></div>
+        </div>
+        <div class="tl-cell">
+          <div class="tl-above"></div>
+          <div class="tl-mid"><div class="tl-dot"></div></div>
+          <div class="tl-below"><div class="tl-year">2023 – 2024</div><div class="tl-role">KOL 运营实习</div><div class="tl-org">青木数字科技</div></div>
+        </div>
+        <div class="tl-cell tl-cell--personal">
+          <div class="tl-above">沈以诚演唱会志愿者</div>
+          <div class="tl-mid"><div class="tl-dot tl-dot--personal"></div></div>
+          <div class="tl-below"></div>
+        </div>
+        <div class="tl-cell">
+          <div class="tl-above"></div>
+          <div class="tl-mid"><div class="tl-dot"></div></div>
+          <div class="tl-below"><div class="tl-year">2025</div><div class="tl-role">联合创始人</div><div class="tl-org">ConnectOnion</div></div>
+        </div>
+        <div class="tl-cell">
+          <div class="tl-above"></div>
+          <div class="tl-mid"><div class="tl-dot"></div></div>
+          <div class="tl-below"><div class="tl-year">2025</div><div class="tl-role">官方摄影师</div><div class="tl-org">台湾电影节·悉尼</div></div>
+        </div>
+        <div class="tl-cell tl-cell--personal">
+          <div class="tl-above">Stop-motion《She Heard the Rain Speak》</div>
+          <div class="tl-mid"><div class="tl-dot tl-dot--personal"></div></div>
+          <div class="tl-below"></div>
+        </div>
+        <div class="tl-cell tl-cell--personal">
+          <div class="tl-above">社区公益纪录片</div>
+          <div class="tl-mid"><div class="tl-dot tl-dot--personal"></div></div>
+          <div class="tl-below"></div>
+        </div>
+        <div class="tl-cell tl-cell--personal">
+          <div class="tl-above">播客《恋爱要谈》</div>
+          <div class="tl-mid"><div class="tl-dot tl-dot--personal"></div></div>
+          <div class="tl-below"></div>
+        </div>
+        <div class="tl-cell tl-cell--personal">
+          <div class="tl-above">「满分豆酥」Vlog</div>
+          <div class="tl-mid"><div class="tl-dot tl-dot--personal"></div></div>
+          <div class="tl-below"></div>
+        </div>
+        <div class="tl-cell tl-cell--personal">
+          <div class="tl-above">日系摄影</div>
+          <div class="tl-mid"><div class="tl-dot tl-dot--personal"></div></div>
+          <div class="tl-below"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ · ✦ · ✦</div>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="contact-wash"></div>
+  <div class="contact-inner reveal">
+    <h2 class="contact-h" data-en="Let's make something<br><em>worth noticing.</em>" data-zh="一起做点<br><em>有趣的事</em>">Let's make something<br><em>worth noticing.</em></h2>
+    <p class="contact-sub" data-en="Open to brand marketing, content strategy & creative collaboration." data-zh="欢迎品牌营销、内容运营及创意合作的各种可能性 ✨">Open to brand marketing, content strategy & creative collaboration.</p>
+    <div class="c-btns">
+      <a href="mailto:mengyaozhang115@gmail.com" class="cbtn cbtn-p">✉ mengyaozhang115@gmail.com</a>
+      <a href="tel:+8613958276012" class="cbtn cbtn-s">📞 +86 139 5827 6012</a>
+      <a href="https://linkedin.com/in/mengyao-zhang-yaoyao" target="_blank" class="cbtn cbtn-s">LinkedIn ↗</a>
+      <a href="https://b23.tv/xIJpucp" target="_blank" class="cbtn cbtn-s">B 站 ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer><p>© 2025 Mengyao Zhang · Made with ✦ & ☁️</p></footer>
+
+<!-- ═══ MODAL: She Heard the Rain Speak ═══ -->
+<div class="modal-overlay" id="modal-stopmotion">
+  <div class="modal-box">
+    <div class="modal-close"><button onclick="closeModal('modal-stopmotion')">✕</button></div>
+    <div class="modal-content">
+      <p class="modal-tag">Stop-motion · 2025</p>
+      <h2 class="modal-title">《She Heard the Rain Speak》</h2>
+      <p class="modal-subtitle">Inspired by Mary Oliver's poem "Last Night the Rain Spoke to Me" (1992)</p>
+
+      <div class="modal-video">
+        <iframe src="https://player.vimeo.com/video/1111937463?autoplay=0&title=0&byline=0&portrait=0&share=copy" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      </div>
+      <div class="modal-video-links">
+        <a href="https://vimeo.com/1111937463" target="_blank">▶ Watch on Vimeo</a>
+        <a href="https://www.bilibili.com/video/BV19Uw7z8EZu/" target="_blank">▶ 在B站观看</a>
+      </div>
+
+      <div class="modal-story">
+        <h4>创作背景</h4>
+        <p>雨开始说话，树被星星点亮，她重新感受到了什么。</p>
+        <p>这部短片灵感来源于 Mary Oliver 的诗《Last Night the Rain Spoke to Me》。诗里的雨不是灾难，而是一种温柔的召唤——<em>"what joy to come falling… to be happy again in a new way on the earth."</em></p>
+        <p>刚毕业，慢慢融入快节奏的社会，难免感到麻木和割裂。20 岁的生长痛藏在生活的各个角落。</p>
+        <p>后来我开始爱上下雨。感受雨天的自由与被包裹，发现雨后的大自然清新而有灵气。于是有了这个故事：一个女孩在雨中重新找回感知世界的能力。</p>
+      </div>
+
+      <!-- Pitch Bible Slideshow -->
+      <div class="modal-slideshow">
+        <div class="slideshow-header">
+          <p class="modal-tag" style="margin:0;">Pitch Bible · 18 pages</p>
+          <div class="slideshow-nav">
+            <button onclick="slidePrev('rain')" class="slide-btn">←</button>
+            <span class="slide-counter"><span id="rain-cur">1</span> / 18</span>
+            <button onclick="slideNext('rain')" class="slide-btn">→</button>
+          </div>
+        </div>
+        <div class="slideshow-track" id="rain-track">
+          <img src="images/pitch-1.jpg" alt="Pitch Bible page 1" class="slide-img active">
+          <img src="images/pitch-2.jpg" alt="Pitch Bible page 2" class="slide-img">
+          <img src="images/pitch-3.jpg" alt="Pitch Bible page 3" class="slide-img">
+          <img src="images/pitch-4.jpg" alt="Pitch Bible page 4" class="slide-img">
+          <img src="images/pitch-5.jpg" alt="Pitch Bible page 5" class="slide-img">
+          <img src="images/pitch-6.jpg" alt="Pitch Bible page 6" class="slide-img">
+          <img src="images/pitch-7.jpg" alt="Pitch Bible page 7" class="slide-img">
+          <img src="images/pitch-8.jpg" alt="Pitch Bible page 8" class="slide-img">
+          <img src="images/pitch-9.jpg" alt="Pitch Bible page 9" class="slide-img">
+          <img src="images/pitch-10.jpg" alt="Pitch Bible page 10" class="slide-img">
+          <img src="images/pitch-11.jpg" alt="Pitch Bible page 11" class="slide-img">
+          <img src="images/pitch-12.jpg" alt="Pitch Bible page 12" class="slide-img">
+          <img src="images/pitch-13.jpg" alt="Pitch Bible page 13" class="slide-img">
+          <img src="images/pitch-14.jpg" alt="Pitch Bible page 14" class="slide-img">
+          <img src="images/pitch-15.jpg" alt="Pitch Bible page 15" class="slide-img">
+          <img src="images/pitch-16.jpg" alt="Pitch Bible page 16" class="slide-img">
+          <img src="images/pitch-17.jpg" alt="Pitch Bible page 17" class="slide-img">
+          <img src="images/pitch-18.jpg" alt="Pitch Bible page 18" class="slide-img">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="modal-meta">灵感来源 <span>Mary Oliver · Last Night the Rain Spoke to Me</span></div>
+        <div class="modal-meta">工具 <span>Stop-motion Studio · Adobe Premiere Pro</span></div>
+        <div class="modal-meta">材质 <span>羊毛毡 · 纸 · 手工道具</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: 恋爱要谈 Podcast ═══ -->
+<div class="modal-overlay" id="modal-podcast">
+  <div class="modal-box">
+    <div class="modal-close"><button onclick="closeModal('modal-podcast')">✕</button></div>
+    <div class="modal-content">
+      <p class="modal-tag">播客 · 2025 – 至今</p>
+      <h2 class="modal-title">《恋爱要谈》</h2>
+      <p class="modal-subtitle">聊感情、聊关系，也聊自己。一档关于爱情与亲密关系的中文播客。</p>
+
+      <div class="modal-video-links">
+        <a href="https://www.xiaoyuzhoufm.com/podcast/6788c1cf3b6a4a5081d765b4" target="_blank">🎧 小宇宙收听</a>
+        <a href="https://www.youtube.com/@lianaiyaotan" target="_blank">▶ YouTube</a>
+      </div>
+
+      <div class="modal-story" style="margin-bottom:28px;">
+        <h4>关于这档播客</h4>
+        <p>这是一档记录我们有趣谈话的非正式播客，随机掉落各种 N 人想到的话题。没有那么多的准备工作，想到了就直接开始记录我们的谈话。</p>
+        <p>希望在地球上链接到跟我们有着共鸣的素未谋面的好友！</p>
+      </div>
+
+      <div class="modal-story">
+        <h4>精选单集</h4>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="https://www.xiaoyuzhoufm.com/episode/68aaa293293471fed428b69f" target="_blank" style="padding:14px 18px;background:rgba(255,255,255,0.6);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all 0.2s;display:block;">
+            <div style="font-family:'Noto Serif SC',serif;font-size:13px;color:var(--ink);margin-bottom:4px;">Vol. 21 | 浪漫与现实之间：脚踏实地的浪漫主义.我要在现实里造梦</div>
+            <div style="font-size:11px;color:var(--ink-soft);">我们总在来回切换：一边被诗、电影和书带走，一边又被柴米油盐拉回地面。</div>
+          </a>
+          <a href="https://www.xiaoyuzhoufm.com/episode/6889ab2c8e06fe8de7675f04" target="_blank" style="padding:14px 18px;background:rgba(255,255,255,0.6);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all 0.2s;display:block;">
+            <div style="font-family:'Noto Serif SC',serif;font-size:13px;color:var(--ink);margin-bottom:4px;">Vol. 20 | 爱情就不能一直热烈吗？聊聊爱情平淡期与现代亲密关系</div>
+            <div style="font-size:11px;color:var(--ink-soft);">感情的"平淡期"是不是危机预警？男生不再黏人 = 爱变淡了吗？</div>
+          </a>
+          <a href="https://www.xiaoyuzhoufm.com/episode/687e940fa9dec92500796dd2" target="_blank" style="padding:14px 18px;background:rgba(255,255,255,0.6);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all 0.2s;display:block;">
+            <div style="font-family:'Noto Serif SC',serif;font-size:13px;color:var(--ink);margin-bottom:4px;">Vol. 19 | 爱和责任，真的可以分开说吗？</div>
+            <div style="font-size:11px;color:var(--ink-soft);">"我爱你"和"我会对你负责"，哪句更难说出口？从一句情话聊到责任、承诺、婚姻和自由。</div>
+          </a>
+          <a href="https://www.xiaoyuzhoufm.com/episode/68735e2393fd2d72b8eaad57" target="_blank" style="padding:14px 18px;background:rgba(255,255,255,0.6);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all 0.2s;display:block;">
+            <div style="font-family:'Noto Serif SC',serif;font-size:13px;color:var(--ink);margin-bottom:4px;">Vol. 18 | 68万亿销量的"捞女游戏"，到底有多少人被骗过爱情？</div>
+            <div style="font-size:11px;color:var(--ink-soft);">谈恋爱也要打预防针？爱情里的骗局谁没有听过？从《情感反诈模拟器》聊起。</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="modal-meta">平台 <span>小宇宙 · YouTube</span></div>
+        <div class="modal-meta">更新 <span>21 期 · 持续更新中</span></div>
+        <div class="modal-meta">主题 <span>爱情 · 亲密关系 · 自我成长</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: Photography Portfolio ═══ -->
+<div class="modal-overlay" id="modal-photography">
+  <div class="modal-box">
+    <div class="modal-close"><button onclick="closeModal('modal-photography')">✕</button></div>
+    <div class="modal-content">
+      <p class="modal-tag">Portrait Photography · 2023 – 至今</p>
+      <h2 class="modal-title">日系胶片摄影</h2>
+      <p class="modal-subtitle">用镜头收集女孩们最自在的样子。</p>
+
+      <div class="modal-video">
+        <iframe src="https://player.vimeo.com/video/1095448743?autoplay=0&title=0&byline=0&portrait=0&share=copy" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      </div>
+      <div class="modal-video-links">
+        <a href="https://vimeo.com/1095448743?fl=ip&fe=ec" target="_blank">▶ Watch on Vimeo</a>
+      </div>
+
+      <div class="modal-story" style="margin-bottom:28px;">
+        <p>这是我过去拍摄的人像摄影集。我喜欢充满青春气息和生命力的胶片，喜欢记录下每个女孩真实的样子。</p>
+      </div>
+
+      <div class="modal-footer">
+        <div class="modal-meta">方向 <span>道具制作 · 情绪引导 · 调色修图</span></div>
+        <div class="modal-meta">工具 <span>Lightroom · Photoshop</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: 满分豆酥 Vlog ═══ -->
+<div class="modal-overlay" id="modal-vlog">
+  <div class="modal-box">
+    <div class="modal-close"><button onclick="closeModal('modal-vlog')">✕</button></div>
+    <div class="modal-content">
+      <p class="modal-tag">Vlog · B站</p>
+      <h2 class="modal-title">「满分豆酥」</h2>
+      <p class="modal-subtitle">把镜头对准生活。</p>
+
+      <!-- 视频卡片 -->
+      <a href="https://b23.tv/YbAuMjQ" target="_blank" style="display:block;border-radius:16px;overflow:hidden;text-decoration:none;margin-bottom:28px;border:1px solid var(--border);transition:all 0.3s;">
+        <div style="background:linear-gradient(135deg,#f0d8d8 0%,#e8c8d8 40%,#d8c8e0 100%);padding:40px 32px;position:relative;">
+          <div style="font-size:64px;opacity:0.15;position:absolute;top:16px;right:24px;font-family:'Playfair Display',serif;">▶</div>
+          <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--rose);margin-bottom:14px;">第一支 Vlog</div>
+          <div style="font-family:'Noto Serif SC',serif;font-size:17px;color:var(--ink);line-height:1.6;margin-bottom:10px;">悉尼留学 vlog</div>
+          <div style="font-size:11.5px;color:var(--ink-mid);line-height:1.8;">关于澳洲开学日｜下课一个人去看海｜寂寞的秋天｜谢谢热辣 bb 机的陪伴｜《一生里的某一刻》</div>
+          <div style="margin-top:18px;display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:var(--ink);color:var(--paper);border-radius:100px;font-size:11px;letter-spacing:0.06em;">▶ 在 B 站观看</div>
+        </div>
+      </a>
+
+      <div class="modal-video-links">
+        <a href="https://b23.tv/OJb1m22" target="_blank">📺 满分豆酥主页</a>
+      </div>
+
+      <div class="modal-footer">
+        <div class="modal-meta">平台 <span>哔哩哔哩</span></div>
+        <div class="modal-meta">内容 <span>留学生活 · 日常记录</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: Unity 2D Game ═══ -->
+<div class="modal-overlay" id="modal-game">
+  <div class="modal-box">
+    <div class="modal-close"><button onclick="closeModal('modal-game')">✕</button></div>
+    <div class="modal-content">
+      <p class="modal-tag">Unity 2D · Game Design</p>
+      <h2 class="modal-title">Belong Anywhere</h2>
+      <p class="modal-subtitle">一个关于寻找归属感与内心平静的 2D 小游戏。</p>
+
+      <div class="modal-video">
+        <iframe src="https://player.vimeo.com/video/1174185151?autoplay=0&title=0&byline=0&portrait=0&share=copy" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      </div>
+      <div class="modal-video-links">
+        <a href="https://vimeo.com/1174185151?share=copy&fl=sv&fe=ci" target="_blank">▶ Watch on Vimeo</a>
+        <a href="https://drive.google.com/file/d/1eUG_bJ0_WXo3RINhy6HyF8VaJhRZtT6A/view?usp=drive_link" target="_blank">⬇ 下载游戏安装包</a>
+      </div>
+
+      <!-- 简介 -->
+      <div class="modal-story" style="margin-bottom:28px;">
+        <h4>关于这个游戏</h4>
+        <p>灵感来自我独自留学的第一年中经历的孤独与困惑，以及在澳洲找到的平静和自我疗愈。主角在探索自然与星空的过程中，经历了从焦虑、孤独到内心平静的转变。圆形身上的斑点逐渐消退，化为温暖的金色心形，象征着重新感知世界的温暖，在任何地方都能找到归属感。</p>
+        <p>故事分为三个场景，每个场景代表主角情感旅程的不同阶段。</p>
+      </div>
+
+      <!-- 环境设计 -->
+      <div class="modal-story" style="margin-bottom:28px;">
+        <h4>环境设计</h4>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;">
+          <div>
+            <img src="images/scene1.jpg" alt="Scene 1 - Nature" style="width:100%;border-radius:10px;display:block;">
+            <div style="text-align:center;font-size:10px;color:var(--ink-soft);margin-top:6px;font-style:italic;">Scene 1 · Nature</div>
+          </div>
+          <div>
+            <img src="images/scene2.jpg" alt="Scene 2 - Starry Sky" style="width:100%;border-radius:10px;display:block;">
+            <div style="text-align:center;font-size:10px;color:var(--ink-soft);margin-top:6px;font-style:italic;">Scene 2 · Starry Sky</div>
+          </div>
+          <div>
+            <img src="images/scene3.jpg" alt="Scene 3 - Inner World" style="width:100%;border-radius:10px;display:block;">
+            <div style="text-align:center;font-size:10px;color:var(--ink-soft);margin-top:6px;font-style:italic;">Scene 3 · Inner World</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 角色设计 -->
+      <div class="modal-story" style="margin-bottom:28px;">
+        <h4>角色设计</h4>
+        <p>角色形状为圆形，灵感来自 Pol Bury 的作品《Circle and Ten Triangles》(1976)。从一个粗糙、半透明、带有斑点的形态开始——斑点代表内心的不安与焦虑。随着旅程推进，角色逐渐变得清晰完整，过渡为温暖的黄色调，斑点消失化为金色心形。</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px;padding:20px;background:rgba(255,255,255,0.5);border-radius:14px;">
+          <div style="text-align:center;">
+            <img src="images/chara1.jpg" alt="角色状态1" style="width:80px;height:80px;object-fit:contain;">
+            <div style="font-size:9px;color:var(--ink-soft);margin-top:4px;">焦虑不安</div>
+          </div>
+          <div style="font-size:16px;color:var(--rose);">→</div>
+          <div style="text-align:center;">
+            <img src="images/chara2.jpg" alt="角色状态2" style="width:80px;height:80px;object-fit:contain;">
+            <div style="font-size:9px;color:var(--ink-soft);margin-top:4px;">逐渐清晰</div>
+          </div>
+          <div style="font-size:16px;color:var(--rose);">→</div>
+          <div style="text-align:center;">
+            <img src="images/chara3.jpg" alt="角色状态3" style="width:80px;height:80px;object-fit:contain;">
+            <div style="font-size:9px;color:var(--ink-soft);margin-top:4px;">温暖归属</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Palette -->
+      <div class="modal-story" style="margin-bottom:28px;">
+        <h4>Color Palette</h4>
+        <p>配色以暖色调为主——棕色、黄色、绿色和粉色，通过对比色营造温暖明亮的视觉效果。深蓝星空中的星星因对比而更加闪耀。整体风格注重柔和与舒适感，大量使用阴影和模糊效果。</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+          <div>
+            <img src="images/colour1.jpg" alt="Color Palette 1" style="width:100%;border-radius:10px;display:block;">
+          </div>
+          <div>
+            <img src="images/colour2.jpg" alt="Color Palette 2" style="width:100%;border-radius:10px;display:block;">
+          </div>
+        </div>
+      </div>
+
+      <!-- 字体设计 -->
+      <div class="modal-story" style="margin-bottom:28px;">
+        <h4>字体设计</h4>
+        <p>字体选用「Love」，圆润的手写风格搭配简洁的无衬线字母。字母 "o" 设计为心形，为整体增添温暖的情感基调，黄色填充呼应游戏的治愈主题。</p>
+      </div>
+
+      <div class="modal-footer">
+        <div class="modal-meta">工具 <span>Unity · C# · Photoshop</span></div>
+        <div class="modal-meta">主题 <span>归属感 · 自我疗愈 · 内心旅程</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script>
+/* ── Language Toggle ── */
+let currentLang = 'en';
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
+  document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+    const text = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-zh');
+    if (el.tagName === 'H2' || el.tagName === 'H1') {
+      el.innerHTML = text;
+    } else {
+      el.textContent = text;
+    }
+  });
+}
+
+/* ── Custom Cursor ── */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+(function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+})();
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'translate(-50%,-50%) scale(2.2)';
+    ring.style.transform = 'translate(-50%,-50%) scale(1.5)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+    ring.style.transform = 'translate(-50%,-50%) scale(1)';
+  });
+});
+
+/* ── Floating Particles ── */
+const fl = document.getElementById('floaters');
+const colors = {
+  star:  ['#e8c030','#f0d060','#e0b820'],
+  drop:  ['#b8d8ee','#90c8e0'],
+  dot:   ['#e8a090','#c8b8e0','#b8d8ee','#e8c030'],
+  spark: ['#e8c030','#b8d8ee','#e8a090']
+};
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+function makeStar() {
+  const s = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('viewBox','0 0 24 24');
+  const sz = 8 + Math.random() * 14;
+  s.style.cssText = `width:${sz}px;height:${sz}px;`;
+  const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+  p.setAttribute('d','M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z');
+  p.setAttribute('fill', pick(colors.star));
+  s.appendChild(p);
+  return s;
+}
+function makeDrop() {
+  const s = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('viewBox','0 0 12 18');
+  const sz = 5 + Math.random() * 7;
+  s.style.cssText = `width:${sz}px;height:${sz * 1.5}px;`;
+  const e = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+  e.setAttribute('cx','6'); e.setAttribute('cy','10'); e.setAttribute('rx','5'); e.setAttribute('ry','8');
+  e.setAttribute('fill', pick(colors.drop)); e.setAttribute('opacity','0.72');
+  s.appendChild(e);
+  return s;
+}
+function makeDot() {
+  const d = document.createElement('div');
+  const sz = 3 + Math.random() * 8;
+  d.style.cssText = `width:${sz}px;height:${sz}px;border-radius:50%;background:${pick(colors.dot)};opacity:0.55;`;
+  return d;
+}
+function makeSpark() {
+  const s = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  const sz = 8 + Math.random() * 10;
+  s.setAttribute('viewBox','0 0 20 20');
+  s.style.cssText = `width:${sz}px;height:${sz}px;`;
+  const c = pick(colors.spark);
+  ['M10 2v16','M2 10h16'].forEach(d => {
+    const l = document.createElementNS('http://www.w3.org/2000/svg','path');
+    l.setAttribute('d', d); l.setAttribute('stroke', c);
+    l.setAttribute('stroke-width','1.8'); l.setAttribute('opacity','0.65');
+    s.appendChild(l);
+  });
+  return s;
+}
+
+const makers = [makeStar, makeStar, makeDrop, makeDrop, makeDot, makeSpark];
+for (let i = 0; i < 30; i++) {
+  const wrap = document.createElement('div');
+  wrap.className = 'floater';
+  wrap.appendChild(pick(makers)());
+  const dur = 16 + Math.random() * 24;
+  wrap.style.cssText = `left:${Math.random()*100}%;animation-duration:${dur}s;animation-delay:-${Math.random()*dur}s;`;
+  fl.appendChild(wrap);
+}
+
+/* ── Timeline Drag Scroll ── */
+const ttrack = document.querySelector('.timeline-track');
+if (ttrack) {
+  let isDown = false, startX, scrollLeft;
+  ttrack.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - ttrack.offsetLeft; scrollLeft = ttrack.scrollLeft; });
+  ttrack.addEventListener('mouseleave', () => { isDown = false; });
+  ttrack.addEventListener('mouseup', () => { isDown = false; });
+  ttrack.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); ttrack.scrollLeft = scrollLeft - (e.pageX - ttrack.offsetLeft - startX); });
+  // Touch support
+  let touchStartX, touchScrollLeft;
+  ttrack.addEventListener('touchstart', e => { touchStartX = e.touches[0].pageX; touchScrollLeft = ttrack.scrollLeft; });
+  ttrack.addEventListener('touchmove', e => { ttrack.scrollLeft = touchScrollLeft + (touchStartX - e.touches[0].pageX); });
+}
+
+/* ── Scroll Reveal ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ── Slideshow (2 pages at a time) ── */
+const slideshows = {};
+function initSlideshow(id, total) { slideshows[id] = { cur: 1, total }; }
+function updateSlide(id) {
+  const s = slideshows[id];
+  const imgs = document.querySelectorAll('#' + id + '-track .slide-img');
+  imgs.forEach(img => {
+    if (img.classList.contains('active') || img.classList.contains('active-right')) img.classList.add('fading');
+  });
+  setTimeout(() => {
+    imgs.forEach((img, i) => {
+      img.classList.remove('active', 'active-right', 'fading');
+      if (i + 1 === s.cur) img.classList.add('active');
+      else if (i + 1 === s.cur + 1) img.classList.add('active-right');
+    });
+  }, 180);
+  document.getElementById(id + '-cur').textContent = Math.ceil(s.cur / 2);
+}
+function slideNext(id) { const s = slideshows[id]; s.cur = s.cur + 2 > s.total ? 1 : s.cur + 2; updateSlide(id); }
+function slidePrev(id) { const s = slideshows[id]; s.cur = s.cur - 2 < 1 ? (s.total % 2 === 0 ? s.total - 1 : s.total) : s.cur - 2; updateSlide(id); }
+initSlideshow('rain', 18);
+
+/* ── Modal ── */
+function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) { if (e.target === this) closeModal(this.id); });
+});
+document.addEventListener('keydown', e => {
+  const modal = document.getElementById('modal-stopmotion');
+  if (modal.classList.contains('active')) {
+    if (e.key === 'ArrowRight') slideNext('rain');
+    if (e.key === 'ArrowLeft') slidePrev('rain');
+  }
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m.id));
+});
+</script>
+</body>
+</html>
