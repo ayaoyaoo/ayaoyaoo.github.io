@@ -382,7 +382,7 @@ footer { padding: 26px 60px; text-align: center; font-size: 12px; color: var(--i
 #modal-tapi .aarrr-title{font-size:12.5px;font-weight:500;letter-spacing:0.06em;color:var(--rose);}
 #modal-tapi .modal-story{margin-bottom:24px !important;}
 
-.flip-wrap{margin-top:14px;max-width:64%;}
+.flip-wrap{margin:14px auto 0;max-width:64%;}
 .flip-cap{display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;}
 .flip{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:#fff;}
 .flip img{display:none;width:100%;height:auto;}
@@ -398,6 +398,10 @@ footer { padding: 26px 60px; text-align: center; font-size: 12px; color: var(--i
 .img-cap{font-size:10px;color:var(--ink-soft);margin-top:5px;line-height:1.5;letter-spacing:0.02em;}
 .mosaic-cell{position:relative;}
 .mosaic-cell .img-cap{position:absolute;left:8px;bottom:6px;margin:0;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.6);}
+
+#modal-tapi .modal-story > div[style*="max-width"]{margin-left:auto !important;margin-right:auto !important;}
+#modal-tapi .modal-story > figure{margin-left:auto !important;margin-right:auto !important;}
+.sub-cap{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin:22px 0 6px;text-align:center;}
 </style>
 </head>
 <body>
@@ -1265,7 +1269,7 @@ footer { padding: 26px 60px; text-align: center; font-size: 12px; color: var(--i
       <div class="modal-story" style="margin-bottom:28px;">
         <div class="aarrr-h"><span class="aarrr-title">卖点概念 × 钩子</span><span class="aarrr-chip c-acq">获客 Acquisition</span></div>
         <p>围绕 CRM、Landing Page、Industry App 三个卖点概念搭建测试框架，每个概念配多个钩子，例如「不按席位付费」「Not a template. Your actual storefront.」；素材编号与 UTM 一一对应，并配置转化数据回传。单条素材花到约 2–3 倍目标成本后统一判定：优于中位数的「毕业」加预算，有亮点的「迭代」，仍低于中位数的「淘汰」。共管理 30+ 条素材，最优素材 CPA 为 $6.50，较账户均值 $18.44 降低 <em>65%</em>。</p>
-        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px;max-width:44%;"><figure style="margin:0;"><img src="images/tapi-app1.jpg" alt="投放素材 · Landing" style="width:100%;border-radius:10px;display:block;aspect-ratio:4/5;object-fit:cover;object-position:top;"><figcaption class="img-cap">投放素材 · Landing</figcaption></figure><figure style="margin:0;"><img src="images/tapi-app2.jpg" alt="投放素材 · CRM" style="width:100%;border-radius:10px;display:block;aspect-ratio:4/5;object-fit:cover;object-position:top;"><figcaption class="img-cap">投放素材 · CRM</figcaption></figure></div><figure style="margin:10px 0 0;"><div style="overflow-x:auto;border:1px solid var(--border);border-radius:8px;background:#fff;"><img src="images/app-tracker.jpg" alt="投放数据 Tracker · 9.16–9.27 · UK" style="height:240px;width:auto;max-width:none;display:block;"></div><figcaption class="img-cap">投放数据 Tracker：CRM / Landing / Industry 三组素材从曝光到注册的逐条数据（可左右滑动）</figcaption></figure>
+        <div class="sub-cap">投放素材</div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:0;max-width:44%;"><figure style="margin:0;"><img src="images/tapi-app1.jpg" alt="投放素材 · Landing" style="width:100%;border-radius:10px;display:block;aspect-ratio:4/5;object-fit:cover;object-position:top;"><figcaption class="img-cap">投放素材 · Landing</figcaption></figure><figure style="margin:0;"><img src="images/tapi-app2.jpg" alt="投放素材 · CRM" style="width:100%;border-radius:10px;display:block;aspect-ratio:4/5;object-fit:cover;object-position:top;"><figcaption class="img-cap">投放素材 · CRM</figcaption></figure></div><div class="sub-cap">投放数据 Tracker</div><figure style="margin:0;max-width:100%;"><div style="overflow-x:auto;border:1px solid var(--border);border-radius:8px;background:#fff;"><img src="images/app-tracker.jpg" alt="投放数据 Tracker · 9.16–9.27 · UK" style="height:240px;width:auto;max-width:none;display:block;"></div><figcaption class="img-cap">投放数据 Tracker：CRM / Landing / Industry 三组素材从曝光到注册的逐条数据（可左右滑动）</figcaption></figure>
       </div>
 
       <div class="modal-story" style="margin-bottom:28px;">
