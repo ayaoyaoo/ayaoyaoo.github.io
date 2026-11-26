@@ -367,16 +367,16 @@ footer { padding: 26px 60px; text-align: center; font-size: 12px; color: var(--i
 #modal-tapi .proj-sep{border:0;border-top:1px solid rgba(200,160,140,0.55);margin:48px 0 0;}
 
 
-/* TAPI detail hierarchy: L1 modal title 26 · L2 project 22 · L3 task 15 · body 13 */
-#modal-tapi .proj-h{display:grid;grid-template-columns:44px 1fr;column-gap:14px;margin:52px 0 22px;padding:0 0 16px;border-bottom:1px solid rgba(200,160,140,0.5);}
-#modal-tapi .proj-big{grid-row:span 3;font-family:'Playfair Display',serif;font-style:italic;font-size:34px;line-height:1;color:var(--rose);}
-#modal-tapi .proj-h .proj-num{grid-column:2;font-family:inherit;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);}
-#modal-tapi .proj-h .proj-title{grid-column:2;font-size:22px;margin:2px 0 2px;}
-#modal-tapi .proj-h .proj-sub{grid-column:2;font-size:12px;}
-#modal-tapi .proj-h > div:last-child{grid-column:2;margin-top:12px !important;gap:6px 28px !important;}
-#modal-tapi .proj-h > div:last-child > div > div:first-child{font-size:17px !important;color:var(--ink) !important;}
-#modal-tapi .proj-sep{display:none;}
-#modal-tapi .aarrr-title{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:500;}
+
+/* TAPI detail: projects separated by a rule above each header */
+#modal-tapi .proj-h{margin:0 0 24px;padding:0;border:0;}
+#modal-tapi .proj-sep{display:block;border:0;border-top:1px solid rgba(200,160,140,0.55);margin:44px 0 36px;}
+#modal-tapi .proj-h .proj-num{font-family:inherit;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--rose);}
+#modal-tapi .proj-h .proj-title{font-size:22px;margin:4px 0 2px;}
+#modal-tapi .proj-h .proj-sub{font-size:12px;}
+#modal-tapi .proj-h > div:last-child{margin-top:12px !important;gap:6px 28px !important;}
+#modal-tapi .proj-h > div:last-child > div > div:first-child{font-size:18px !important;}
+#modal-tapi .aarrr-title{font-size:14px;font-weight:600;}
 #modal-tapi .modal-story{margin-bottom:24px !important;}
 </style>
 </head>
@@ -1167,9 +1167,9 @@ footer { padding: 26px 60px; text-align: center; font-size: 12px; color: var(--i
         </div>
       </div>
 
+      <hr class="proj-sep">
       <div class="proj-h">
-        <div class="proj-big">01</div>
-        <div class="proj-num">2026.05 – 07 · AI App Builder</div>
+        <div class="proj-num">01 · 2026.05 – 07 · AI App Builder</div>
         <div class="proj-title">Tapi 1.0</div>
         <div class="proj-sub">面向创作者的自然语言网页应用生成工具。</div>
         <div style="display:flex;flex-wrap:wrap;gap:10px 32px;margin:16px 0 0;"><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">0 → 219</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">Discord 社区成员</div></div><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">32</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">两场 Hackathon 作品</div></div><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">87</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">转发抽奖参与</div></div></div>
@@ -1208,8 +1208,7 @@ footer { padding: 26px 60px; text-align: center; font-size: 12px; color: var(--i
 
       <hr class="proj-sep">
       <div class="proj-h">
-        <div class="proj-big">02</div>
-        <div class="proj-num">2026.08</div>
+        <div class="proj-num">02 · 2026.08</div>
         <div class="proj-title">AI Workflow</div>
         <div class="proj-sub">帮用户搭建自动化工作流的 AI 产品，在 UAE 和 UK 投放。</div>
         <div style="display:flex;flex-wrap:wrap;gap:10px 32px;margin:16px 0 0;"><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">13% → 25%</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">落地页 → 注册转化率</div></div><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">−61%</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">UAE 单次注册成本较 UK</div></div><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">168</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">注册用户</div></div></div>
@@ -1238,8 +1237,7 @@ footer { padding: 26px 60px; text-align: center; font-size: 12px; color: var(--i
 
       <hr class="proj-sep">
       <div class="proj-h">
-        <div class="proj-big">03</div>
-        <div class="proj-num">2026.09 · App Builder &amp; Portfolio</div>
+        <div class="proj-num">03 · 2026.09 · App Builder &amp; Portfolio</div>
         <div class="proj-title">New Tapi</div>
         <div class="proj-sub">AI Workspace 中的 App Builder 与 Portfolio 功能，在 UK 投放。</div>
         <div style="display:flex;flex-wrap:wrap;gap:10px 32px;margin:16px 0 0;"><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">−65%</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">最优素材 CPA</div></div><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">30+</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">测试素材</div></div><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">23+</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">Portfolio Skill 测试</div></div></div>
@@ -1268,8 +1266,7 @@ footer { padding: 26px 60px; text-align: center; font-size: 12px; color: var(--i
 
       <hr class="proj-sep">
       <div class="proj-h">
-        <div class="proj-big">04</div>
-        <div class="proj-num">2026.10 – 11 · B2B</div>
+        <div class="proj-num">04 · 2026.10 – 11 · B2B</div>
         <div class="proj-title">Construction</div>
         <div class="proj-sub">面向 UK / AU 总承包商的垂直 AI 产品（AI Project OS）。</div>
         <div style="display:flex;flex-wrap:wrap;gap:10px 32px;margin:16px 0 0;"><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">0 → 11</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">合格线索</div></div><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">50+</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">一个月获取线索</div></div><div><div style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;color:var(--ink);">−51%</div><div style="font-size:10px;color:var(--ink-soft);margin-top:4px;">Outcome 概念 CPL 较 Service</div></div></div>
@@ -1303,8 +1300,7 @@ footer { padding: 26px 60px; text-align: center; font-size: 12px; color: var(--i
 
       <hr class="proj-sep">
       <div class="proj-h">
-        <div class="proj-big">05</div>
-        <div class="proj-num">B2B · LinkedIn Outreach</div>
+        <div class="proj-num">05 · B2B · LinkedIn Outreach</div>
         <div class="proj-title">Land Acquisition</div>
         <div class="proj-sub">帮澳洲房地产收购与开发团队更快筛选地块的数据产品。</div>
         <div style="display:flex;flex-wrap:wrap;gap:10px 32px;margin:16px 0 0;"></div>
